@@ -1,10 +1,31 @@
+const { create } = require('domain');
 const fs = require('fs');
 
 
-// Generate Manager Card
-const generateMngrCard = function(employee) {
+const writeFile = fileContent => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('../dist/index.html', fileContent, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-    return `
+            resolve({
+                ok: true,
+                message: 'File created!'
+            });
+        });
+    });
+};
+
+
+// Generate Manager Card
+const generateMngrCard = async function(employee) {
+    if (employee.role !== 'Manager') {
+        return;
+    }
+
+    let managerCard = `
         <div class="card">
             <h4 class="card-title bg-primary text-light"><i class="far fa-id-badge text-light"></i> Manager</h4>
             <div class="card-body">
@@ -15,14 +36,23 @@ const generateMngrCard = function(employee) {
             </div>
         </div>
 `
+    if (!managerCard) {
+        return;
+    } else {
+        return managerCard;
+    }
 };
 
 
 // Generate Engineer Cards
-const generateEngCards = (employee) => {
-    return `
+const generateEngCards = async function(employee) {
+    if (employee.role !== 'Engineer') {
+        return;
+    }
+
+    let engineerCard = `
         <div class="card">
-            <img src="..." class="card-img-top" alt="...">
+        <h4 class="card-title bg-primary text-light"><i class="fas fa-glasses text-light"></i> Manager</h4>
             <div class="card-body">
                 <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                 <p class="card-text">${employee.id}</p>
@@ -30,13 +60,23 @@ const generateEngCards = (employee) => {
             </div>
         </div>
 `
+    if (!engineerCard) {
+        return;
+    } else {
+        return engineerCard;
+    }
 };
 
 
 // Generate Intern Cards
-const generateInternCards = (employee) => {
-    return `
+const generateInternCards = async function(employee) {
+    if (employee.role !== "Intern") {
+        return;
+    }
+
+    let internCard = `
                     <div class="card">
+                    <h4 class="card-title bg-primary text-light"><i class="fas fa-graduation-cap text-light"></i> Manager</h4>
                         <div class="card-body">
                             <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                             <p class="card-text">${employee.id}</p>
@@ -44,10 +84,18 @@ const generateInternCards = (employee) => {
                         </div>
                     </div>
 `
+
+    if (!internCard) {
+        return;
+    } else {
+        return internCard;
+    }
 };
 
-const pageTemplate = (employees) => {
-    page = `
+const pageTemplate = async function(page) {
+    const { managers, engineers, interns } = page;
+
+    let pageMockup = `
     <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +122,7 @@ const pageTemplate = (employees) => {
                     <h3 class="text-center">Manager:</h3>
                 </div>
                 <div class="row" id="manager-card">
-                ${ generateMngrCard(employees)}
+                ${ managers.map(manager => manager).join(',')}
                 </div>
             </div>
             <div class="col-4"></div>
@@ -87,7 +135,7 @@ const pageTemplate = (employees) => {
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="card-deck col-4" id="employee-card-deck">
-                    ${ generateEngCards(employees) };
+                    ${ engineers.map(engineer => engineer).join(',') }
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -100,7 +148,7 @@ const pageTemplate = (employees) => {
             <div class="row">
                 <div class="col-4"></div>
                 <div class="card-deck col-4" id="intern-card-deck">
-                ${ generateInternCards(employees) }
+                ${ interns.map(intern => intern).join(',') }
                 </div>
                 <div class="col-4"></div>
             </div>
@@ -110,8 +158,11 @@ const pageTemplate = (employees) => {
 
 </html>
     `
+    const indexFile = await writeFile(pageMockup);
 };
 
 
 
-module.exports = { pageTemplate };
+
+
+module.exports = { pageTemplate, generateMngrCard, generateEngCards, generateInternCards };

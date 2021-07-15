@@ -1,3 +1,5 @@
-const Team = require('./lib/prompt-user');
+const { writeFile } = require('./lib/generate_html');
+const { createEmployee } = require('./lib/prompt-user');
 
-Team.createEmployee();
+createEmployee()
+    .then(page => writeFile(page));

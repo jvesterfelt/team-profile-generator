@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const writeFile = fileContent => {
     return new Promise((resolve, reject) => {
-        fs.writeFile('../dist/index.html', fileContent, err => {
+        fs.writeFile('./dist/index.html', fileContent, err => {
             if (err) {
                 reject(err);
                 return;
@@ -52,7 +52,7 @@ const generateEngCards = async function(employee) {
 
     let engineerCard = `
         <div class="card">
-        <h4 class="card-title bg-primary text-light"><i class="fas fa-glasses text-light"></i> Manager</h4>
+        <h4 class="card-title bg-primary text-light"><i class="fas fa-glasses text-light"></i> Engineer</h4>
             <div class="card-body">
                 <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                 <p class="card-text">${employee.id}</p>
@@ -76,7 +76,7 @@ const generateInternCards = async function(employee) {
 
     let internCard = `
                     <div class="card">
-                    <h4 class="card-title bg-primary text-light"><i class="fas fa-graduation-cap text-light"></i> Manager</h4>
+                    <h4 class="card-title bg-primary text-light"><i class="fas fa-graduation-cap text-light"></i> Intern</h4>
                         <div class="card-body">
                             <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                             <p class="card-text">${employee.id}</p>
@@ -122,7 +122,7 @@ const pageTemplate = async function(page) {
                     <h3 class="text-center">Manager:</h3>
                 </div>
                 <div class="row" id="manager-card">
-                ${ managers.map(manager => manager).join(',')}
+                ${ managers.map(manager => manager).join('')}
                 </div>
             </div>
             <div class="col-4"></div>
@@ -135,7 +135,7 @@ const pageTemplate = async function(page) {
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="card-deck col-4" id="employee-card-deck">
-                    ${ engineers.map(engineer => engineer).join(',') }
+                    ${ engineers.map(engineer => engineer).join('') }
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -148,7 +148,7 @@ const pageTemplate = async function(page) {
             <div class="row">
                 <div class="col-4"></div>
                 <div class="card-deck col-4" id="intern-card-deck">
-                ${ interns.map(intern => intern).join(',') }
+                ${ interns.map(intern => intern).join('') }
                 </div>
                 <div class="col-4"></div>
             </div>

@@ -19,6 +19,12 @@ A simple node.js application leveraging the fs library and the inquirer package 
 This application is solely for educational purposed and is not expected to be used by the public.
     
 #### Usage Screenshots:
+![image](https://user-images.githubusercontent.com/81572838/125976205-3b9a4352-5db8-4cb2-8573-a96ee1861e4e.png)
+
+#### Video Demonstration:
+https://pro.panopto.com/Panopto/Pages/Viewer.aspx?id=bd30169b-b6ee-4891-bb53-ad670104adc4
+
+![image](https://user-images.githubusercontent.com/81572838/125976147-e6a685c7-918f-4651-be23-653db1f80750.png)
 
     
 

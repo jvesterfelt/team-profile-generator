@@ -31,7 +31,7 @@ const generateMngrCard = async function(employee) {
             <div class="card-body">
                 <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                 <p class="card-text">${employee.id}</p>
-                <p class="card-text">${employee.email}</p>
+                <a href="mailto:${employee.email}" class="card-text">${employee.email}</a>
                 <p class="card-text"><small class="text-muted">${employee.detail}</small></p>
             </div>
         </div>
@@ -56,7 +56,8 @@ const generateEngCards = async function(employee) {
             <div class="card-body">
                 <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                 <p class="card-text">${employee.id}</p>
-                <p class="card-text"><small class="text-muted">Github Username: ${employee.detail}</small></p>
+                <a href="mailto:${employee.email}" class="card-text">${employee.email}</a>
+                <p class="card-text"><small class="text-muted">Github Username: <a href="https://github.com/${employee.detail}">${employee.detail}</a></small></p>
             </div>
         </div>
 `
@@ -80,6 +81,7 @@ const generateInternCards = async function(employee) {
                         <div class="card-body">
                             <h5 class="card-title">${employee.firstName} ${employee.lastName}</h5>
                             <p class="card-text">${employee.id}</p>
+                            <a href="mailto:${employee.email}" class="card-text">${employee.email}</a>
                             <p class="card-text"><small class="text-muted">School: ${employee.detail}</small></p>
                         </div>
                     </div>
@@ -134,7 +136,7 @@ const pageTemplate = async function(page) {
                 </div>
                 <div class="row">
                     <div class="col-4"></div>
-                    <div class="card-deck col-4" id="employee-card-deck">
+                    <div class="card-group col-4" id="employee-card-group">
                     ${ engineers.map(engineer => engineer).join('') }
                     </div>
                     <div class="col-4"></div>
@@ -147,7 +149,7 @@ const pageTemplate = async function(page) {
             </div>
             <div class="row">
                 <div class="col-4"></div>
-                <div class="card-deck col-4" id="intern-card-deck">
+                <div class="card-group col-4" id="intern-card-group">
                 ${ interns.map(intern => intern).join('') }
                 </div>
                 <div class="col-4"></div>
